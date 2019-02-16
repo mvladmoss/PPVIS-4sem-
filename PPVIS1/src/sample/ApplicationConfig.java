@@ -4,9 +4,8 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import sample.task1.Director;
 
-public class Main extends Application {
+public class ApplicationConfig extends Application {
 
     private final static String PROGRAM_NAME = "Simple GUI Examples";
     private final static int START_WINDOW_WIDTH = 1000;
@@ -17,14 +16,13 @@ public class Main extends Application {
         AnchorPane root = new AnchorPane();
         primaryStage.setTitle(PROGRAM_NAME);
         primaryStage.setScene(new Scene(root, START_WINDOW_WIDTH, START_WINDOW_HEIGHT));
-        primaryStage.show();
         new sample.task1.Director(root);
         new sample.task2.Director(root);
         new sample.task3.Director(root);
         new sample.task4.Director(root);
         new sample.task5.Director(root);
+        primaryStage.show();
     }
-
 
     public static void main(String[] args) {
         launch(args);

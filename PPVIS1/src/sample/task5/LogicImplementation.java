@@ -18,6 +18,9 @@ public class LogicImplementation {
     void setActionOnMoveSecondColumnButton(TableView table){
         TableView.TableViewSelectionModel selectionModel = table.getSelectionModel();
         Model selectedModel = (Model) selectionModel.getSelectedItem();
+        if(selectedModel.getName().equals("") && !selectedModel.getSurname().equals("")){
+            return;
+        }
         selectedModel.setSurname(selectedModel.getName());
         selectedModel.setName(EMPTY_STRING);
         table.refresh();
@@ -26,6 +29,9 @@ public class LogicImplementation {
     void setActionOnMoveFirstColumnButton(TableView table){
         TableView.TableViewSelectionModel selectionModel = table.getSelectionModel();
         Model selectedModel = (Model) selectionModel.getSelectedItem();
+        if(selectedModel.getSurname().equals("") && !selectedModel.getName().equals("")) {
+            return;
+        }
         selectedModel.setName(selectedModel.getSurname());
         selectedModel.setSurname(EMPTY_STRING);
         table.refresh();
