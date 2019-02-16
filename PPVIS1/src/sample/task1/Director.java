@@ -1,8 +1,8 @@
 package sample.task1;
 
-
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -11,7 +11,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
-public class Director {
+import java.util.ArrayList;
+import java.util.List;
+
+public class Director implements sample.Director {
 
     private final static Integer PREF_WIDTH = 400;
     private final static Integer PREF_HEIGHT = 150;
@@ -24,13 +27,16 @@ public class Director {
     private final static String BUTTON_TEXT = "Add";
     private final static String WARNING = "WARNING";
     private final static String WARNING_MESSAGE_DUPLICATE = "WARNING!Such string already exists";
+    private final static Integer COMPONENTS_NUMBER = 3;
 
     private ComboBox comboBox;
     private TextField textField;
     private Button button;
+    private Pane pane;
 
     public Director(Pane pane){
         HBox hBox = new HBox();
+        this.pane = hBox;
         hBox.setPrefSize(PREF_WIDTH,PREF_HEIGHT);
         hBox.setStyle("-fx-background-color: gray");
         AnchorPane.setTopAnchor(hBox,ANCHOR);
@@ -40,7 +46,23 @@ public class Director {
         setButtonListener();
     }
 
-    private void customizeComponents(Pane pane){
+    private void incrementCount() {
+        List<Node> nodes = pane.getChildren();
+        List<Node> newNodes = new ArrayList<>();
+        newNodes.add(nodes.get(COMPONENTS_NUMBER - 1));
+        for (int i = 0; i < COMPONENTS_NUMBER-1; i++) {
+            newNodes.add(nodes.get(i));
+        }
+        pane.getChildren().removeAll(nodes);
+        pane.getChildren().addAll(newNodes);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void customizeComponents(Pane pane){
         ComboBox comboBox = new ComboBox();
         this.comboBox = comboBox;
         pane.getChildren().add(comboBox);
@@ -76,6 +98,10 @@ public class Director {
                 comboBox.getItems().add(textToAdd);
             }
         });
+    }
+
+    public Pane getPane(){
+        return pane;
     }
 
 }

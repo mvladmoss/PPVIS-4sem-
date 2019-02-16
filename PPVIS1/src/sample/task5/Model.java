@@ -1,7 +1,5 @@
 package sample.task5;
 
-import javafx.beans.property.StringProperty;
-
 public class Model {
 
     private String name;

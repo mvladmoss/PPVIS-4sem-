@@ -7,7 +7,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
-public class Director {
+public class Director implements sample.Director {
 
     private final static String FIRST_BUTTON_NAME = "Change 2 button";
     private final static String SECOND_BUTTON_NAME = "Swap text with first button";
@@ -22,13 +22,15 @@ public class Director {
     private final static Integer MARGIN_RIGHT = 0;
     private final static Integer MARGIN_LEFT = 10;
 
-    private ComponentCustomizer customizer = new ComponentCustomizer();
     private Button firstButton;
     private Button secondButton;
     private TextField textField;
+    private Pane pane;
+
 
     public Director(Pane pane){
         HBox hBox = new HBox();
+        this.pane = hBox;
         hBox.setPrefSize(PREF_WIDTH,PREF_HEIGHT);
         hBox.setStyle("-fx-background-color: gray");
         AnchorPane.setTopAnchor(hBox,TOP_ANCHOR);
@@ -49,7 +51,7 @@ public class Director {
             secondButton.setText(firstButtonText);});
     }
 
-    private void customizeComponents(Pane pane){
+    public void customizeComponents(Pane pane){
         Button firstButton = new Button();
         this.firstButton = firstButton;
         firstButton.setMinWidth(MIN_WIDTH);
@@ -60,7 +62,6 @@ public class Director {
 
         Button secondButton = new Button();
         this.secondButton = secondButton;
-        customizer.customizeButton(secondButton,SECOND_BUTTON_NAME);
         pane.getChildren().add(secondButton);
         secondButton.setMinWidth(MIN_WIDTH);
         secondButton.setId(SECOND_BUTTON_NAME);
@@ -69,32 +70,14 @@ public class Director {
 
         TextField textField = new TextField();
         this.textField = textField;
-        customizer.customizeTextField(textField);
         pane.getChildren().add(textField);
         textField.setMinWidth(MIN_WIDTH);
         HBox.setMargin(textField,new Insets(MARGIN_TOP,MARGIN_RIGHT,MARGIN_BOTTOM,MARGIN_LEFT));
     }
 
-    private void addFirstButton(Pane pane){
-        Button firstButton = new Button();
-        this.firstButton = firstButton;
-        customizer.customizeButton(firstButton,FIRST_BUTTON_NAME);
-        pane.getChildren().add(firstButton);
-
+    public Pane getPane(){
+        return pane;
     }
 
-    private void addSecondButton(Pane pane){
-        Button secondButton = new Button();
-        this.secondButton = secondButton;
-        customizer.customizeButton(secondButton,SECOND_BUTTON_NAME);
-        pane.getChildren().add(secondButton);
-    }
-
-    private void addTextField(Pane pane){
-        TextField textField = new TextField();
-        this.textField = textField;
-        customizer.customizeTextField(textField);
-        pane.getChildren().add(textField);
-    }
 
 }
